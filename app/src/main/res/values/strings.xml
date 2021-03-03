@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Tumbuh</string>
+
+    <integer name="INTENT_TAMBAH">1234</integer>
 </resources>
