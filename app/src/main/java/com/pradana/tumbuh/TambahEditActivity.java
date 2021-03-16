@@ -18,6 +18,15 @@ public class TambahEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tambah_edit);
 
         editDeskripsi = findViewById(R.id.editTextTextMultiLine);
+
+        Intent i = new Intent();
+
+        if (i.hasExtra("123")) {
+            String deskripsi = i.getExtras().getString("123");
+            editDeskripsi.setText(deskripsi);
+        } else {
+            editDeskripsi.setText("data tidak sampai");
+        }
     }
 
     public void save(View view) {

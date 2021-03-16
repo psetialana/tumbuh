@@ -36,12 +36,13 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rvTanaman = (RecyclerView) findViewById(R.id.rvTanaman);
 
         // Create adapter passing in the sample user data
-        adapter = new TanamanAdapter();
+        adapter = new TanamanAdapter(tanaman);
         // Attach the adapter to the recyclerview to populate items
         rvTanaman.setAdapter(adapter);
         // Set layout manager to position the items
         rvTanaman.setLayoutManager(new LinearLayoutManager(this));
         // That's all!
+
     }
 
     public void tambahData(View view) {
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 Tanaman itemData = new Tanaman();
                 itemData.setDeskripsi(data.getStringExtra("deskripsi"));
                 tanaman.add(itemData);
-                adapter.notifyItemInserted(0);
+                adapter.notifyDataSetChanged();
             }
         }
     }

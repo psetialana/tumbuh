@@ -1,12 +1,14 @@
 package com.pradana.tumbuh.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pradana.tumbuh.R;
+import com.pradana.tumbuh.TambahEditActivity;
 import com.pradana.tumbuh.model.Tanaman;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class TanamanAdapter extends
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
+        public View layoutItem;
         public TextView textNama;
         public TextView textDeskripsi;
 
@@ -30,12 +33,18 @@ public class TanamanAdapter extends
             // to access the context from any ViewHolder instance.
             super(itemView);
 
+
             textNama = (TextView) itemView.findViewById(R.id.textNama);
             textDeskripsi = (TextView) itemView.findViewById(R.id.textDeskripsi);
+            layoutItem = (View) itemView.findViewById(R.id.layoutItem);
         }
     }
 
-    private List<Tanaman> mTanaman = new ArrayList<Tanaman>();
+    private List<Tanaman> mTanaman;
+
+    public TanamanAdapter(List<Tanaman> tanaman) {
+        mTanaman = tanaman;
+    }
 
     // ... constructor and member variables
 
@@ -57,17 +66,27 @@ public class TanamanAdapter extends
     @Override
     public void onBindViewHolder(TanamanAdapter.ViewHolder holder, int position) {
         // Get the data model based on position
-        Tanaman tanaman = mTanaman.get(position);
+        final Tanaman tanaman = mTanaman.get(position);
 
         // Set item views based on your views and data model
         TextView textNama = holder.textNama;
         textNama.setText(tanaman.getNama());
         TextView textDeskripsi = holder.textDeskripsi;
         textDeskripsi.setText(tanaman.getDeskripsi());
+
+        holder.layoutItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), TambahEditActivity.class);
+                i.putExtra("123", tanaman.getDeskripsi().toString());
+                view.getContext().startActivity(i);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mTanaman.size();
     }
+
 }
