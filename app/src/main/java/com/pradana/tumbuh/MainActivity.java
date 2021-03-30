@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -54,14 +55,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
         if (requestCode == getResources().getInteger(R.integer.INTENT_TAMBAH)) {
             if (resultCode == Activity.RESULT_OK) {
                 text.setText(data.getStringExtra("deskripsi"));
-                Tanaman itemData = new Tanaman();
-                itemData.setDeskripsi(data.getStringExtra("deskripsi"));
-                tanaman.add(itemData);
+                if (data.hasExtra("indexData")) {
+                    tanaman.get(data.getIntExtra("indexData", 9999)).setDeskripsi(data.getStringExtra("deskripsi"));
+                } else {
+                    Tanaman itemData = new Tanaman();
+                    itemData.setDeskripsi(data.getStringExtra("deskripsi"));
+                    tanaman.add(itemData);
+                }
                 adapter.notifyDataSetChanged();
             }
+        } else {
+            tanaman.get(data.getIntExtra("indexData", 9999)).setDeskripsi(data.getStringExtra("deskripsi"));
+            adapter.notifyDataSetChanged();
         }
     }
 }

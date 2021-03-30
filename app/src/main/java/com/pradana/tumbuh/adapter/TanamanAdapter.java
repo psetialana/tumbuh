@@ -64,7 +64,7 @@ public class TanamanAdapter extends
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(TanamanAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(TanamanAdapter.ViewHolder holder, final int position) {
         // Get the data model based on position
         final Tanaman tanaman = mTanaman.get(position);
 
@@ -78,7 +78,8 @@ public class TanamanAdapter extends
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), TambahEditActivity.class);
-                i.putExtra("123", tanaman.getDeskripsi().toString());
+                i.putExtra("indexData", position);
+                i.putExtra("detailList", tanaman.getDeskripsi());
                 view.getContext().startActivity(i);
             }
         });
